@@ -1,0 +1,115 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#2E6B3A">
+<title>Pedido de verduras</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;600;700&display=swap">
+<style>
+/* Color: hoja #2E6B3A · tomate #D6452B · fondo verdoso #F3F6EE · tinta #17261B · linea #D9E1D0 */
+:root{--bg:#F3F6EE;--surface:#FFFFFF;--ink:#17261B;--muted:#5B6B5F;--line:#D9E1D0;--leaf:#2E6B3A;--leaf-ink:#FFFFFF;--leaf-soft:#E1EFDA;--tomato:#D6452B;--tomato-ink:#FFFFFF;--sel:#EAF4E3;
+--display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;--body:"Figtree","Segoe UI",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F1A12;--surface:#17251B;--ink:#EAF2E4;--muted:#9CB0A0;--line:#2A3D2F;--leaf:#6DBE7B;--leaf-ink:#0F1A12;--leaf-soft:#1E3324;--tomato:#F0735A;--tomato-ink:#1A0A06;--sel:#1D3123;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0F1A12;--surface:#17251B;--ink:#EAF2E4;--muted:#9CB0A0;--line:#2A3D2F;--leaf:#6DBE7B;--leaf-ink:#0F1A12;--leaf-soft:#1E3324;--tomato:#F0735A;--tomato-ink:#1A0A06;--sel:#1D3123;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.4 var(--body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 120px}
+.wrap{max-width:640px;margin:0 auto}
+header{padding-top:22px}
+h1{font:800 34px/1 var(--display);letter-spacing:-.01em;margin:0;text-wrap:balance}
+header p{margin:8px 0 0;color:var(--muted);max-width:46ch}
+label.f{display:block;font-weight:700;font-size:14px;margin:18px 0 6px}
+input.t,textarea.t{width:100%;min-height:50px;border:1.5px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);padding:0 14px;font:inherit}
+textarea.t{padding:12px 14px;min-height:84px}
+input.t:focus,textarea.t:focus,.q input:focus{outline:3px solid var(--leaf);outline-offset:1px;border-color:var(--leaf)}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:12px 0 8px;margin-top:14px;border-bottom:1px solid var(--line)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:10px 0 2px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;min-height:40px;padding:0 14px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font:600 14px var(--body);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--leaf);color:var(--leaf-ink);border-color:var(--leaf)}
+h2{font:700 20px/1.1 var(--display);margin:26px 0 6px;display:flex;align-items:baseline;gap:8px}h2 small{font:600 13px var(--body);color:var(--muted)}
+.row{display:flex;align-items:center;gap:10px;min-height:58px;padding:8px 12px;border:1.5px solid var(--line);border-radius:12px;background:var(--surface);margin-top:8px}
+.row.on{background:var(--sel);border-color:var(--leaf)}
+.row .n{flex:1;min-width:0;font-weight:600;overflow-wrap:anywhere}
+.q{display:flex;align-items:center;gap:6px;flex:none}
+.q button{width:44px;height:44px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font:700 22px var(--body);cursor:pointer}
+.q button.p{background:var(--leaf);color:var(--leaf-ink);border-color:var(--leaf)}
+.q input{width:54px;height:44px;text-align:center;border:1.5px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);font:700 17px var(--body);padding:0;font-variant-numeric:tabular-nums}
+.q .m,.q input.z{opacity:.35}
+.row .u{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;align-items:center}.row .u em{font:600 12px var(--body);color:var(--tomato);font-style:normal}
+.ub{min-height:36px;padding:0 12px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font:600 13px var(--body);cursor:pointer}.ub[aria-pressed="true"]{background:var(--leaf);color:var(--leaf-ink);border-color:var(--leaf)}
+.vacio{padding:24px 0;color:var(--muted)}
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:8;background:var(--surface);border-top:1px solid var(--line);padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.dock .in{max-width:640px;margin:0 auto;display:flex;gap:10px;align-items:center}
+.dock b{font:800 18px var(--display)}.dock span{display:block;color:var(--muted);font-size:13px}
+.btn{min-height:50px;border-radius:14px;border:0;padding:0 18px;font:700 16px var(--body);cursor:pointer;background:var(--tomato);color:var(--tomato-ink)}
+.btn.g{background:var(--surface);color:var(--ink);border:1.5px solid var(--line)}
+.btn:disabled{opacity:.45;cursor:default}
+.sheet{position:fixed;inset:0;z-index:20;background:rgba(10,20,12,.55);display:flex;align-items:flex-end;justify-content:center}
+.sheet[hidden]{display:none}
+.sheet>div{background:var(--surface);width:100%;max-width:640px;max-height:92vh;overflow:auto;border-radius:20px 20px 0 0;padding:20px max(16px,env(safe-area-inset-left,0px)) calc(20px + env(safe-area-inset-bottom,0px))}
+.sheet h3{font:800 24px var(--display);margin:0 0 4px}
+.sheet pre,.sheet textarea{width:100%;min-height:260px;border:1.5px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);padding:12px;font:15px/1.45 var(--body);margin-top:10px}
+.acts{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}.acts .btn{flex:1 1 150px}
+.aviso{font-size:14px;color:var(--muted);margin:8px 0 0}
+</style>
+<div class="wrap">
+<header>
+ <h1>Pedido de verduras</h1>
+ <p>Marca cuánto necesitas de cada producto y elige si lo quieres en kilos o en unidades. Al final tocas Ver pedido, lo copias y lo pegas en el chat.</p>
+</header>
+<label class="f" for="nombre">Tu nombre o el de tu negocio</label>
+<input class="t" id="nombre" autocomplete="name" placeholder="Ej: Soda Doña Mary">
+<div class="bar">
+ <input class="t" id="buscar" type="search" placeholder="Buscar producto (ej: tomate, papa)" autocomplete="off" aria-label="Buscar producto">
+ <div class="chips" id="chips" role="group" aria-label="Categorías"></div>
+</div>
+<div id="lista"></div>
+<label class="f" for="notas">Notas para el pedido (opcional)</label>
+<textarea class="t" id="notas" placeholder="Ej: entregar antes de las 8 a. m., lo más maduro posible"></textarea>
+</div>
+<div class="dock"><div class="in"><div style="flex:1;min-width:0"><b id="cnt">0 productos</b><span id="hint">Toca el + para agregar</span></div><button class="btn g" id="limpiar" type="button">Limpiar</button><button class="btn" id="ver" type="button" disabled>Ver pedido</button></div></div>
+<div class="sheet" id="sheet" hidden><div role="dialog" aria-modal="true" aria-labelledby="st"><h3 id="st">Tu pedido</h3><p class="aviso">Revísalo. Puedes corregir el texto antes de copiarlo.</p><textarea id="msg" aria-label="Texto del pedido"></textarea><div class="acts"><button class="btn" id="copiar" type="button">Copiar pedido</button><button class="btn g" id="wa" type="button">Abrir WhatsApp</button><button class="btn g" id="cerrar" type="button">Seguir editando</button></div><p class="aviso" id="ok" aria-live="polite"></p></div></div>
+<script>
+var CATS=[["Frutas", ["Aguacate has", "Aguacate mexicano", "Carambola", "Cas", "Ciruelas", "Coco", "Fresas bandeja de medio kilo", "Fresas kilo", "Granadilla", "Guanábana", "Guayaba", "Jocote", "Kiwi", "Limón mandarino", "Limón mesino", "Mamón chino", "Mandarina", "Mango maduro", "Mango verde", "Manzana empacada 1x6", "Manzana gala", "Manzana roja navidad", "Manzana verde", "Maracuyá", "Maracuyá procesada", "Melocotón", "Melón", "Mora", "Naranja", "Papaya", "Pejibaye", "Peras", "Pipas", "Piña pequeña", "Piña primera", "Sandía primera", "Sandía segunda", "Tamarindo", "Uva globo", "Uva verde"]], ["Bananos y plátanos", ["Banano cocina", "Banano pinton", "Guineo negro", "Plátano maduro amarillo", "Plátano maduro negro", "Plátano verde"]], ["Ajos y cebollas", ["Ajo 1x3", "Ajo 1x5", "Ajo pelado", "Cebolla", "Cebolla en trenza", "Cebolla en trenza burra", "Cebolla morada", "Cebolla morada burra en trenza", "Cebolla morada trenza", "Cebollín", "Puerros", "Trenza de ajo"]], ["Papas y raíces", ["Camote", "Jengibre", "Papa amarilla", "Papa amarilla burra", "Papa blanca", "Papa mini", "Papa roja", "Remolacha", "Rábanito", "Tiquisque", "Yuca gruesa", "Yuca pequeñas", "Zanahoria", "Zanahoria burra", "Ñampi"]], ["Hojas y hierbas", ["Apio", "Culantro Castilla", "Culantro coyote", "Espinaca", "Hierba buena", "Hojas de tamal", "Kale", "Lechuga", "Lechuga lolorosa", "Lechuga paquete 250g", "Lechuga paquete 500g", "Manzanilla", "Mostaza china", "Orégano", "Perejil", "Repollo morado kilo", "Repollo morado unidad", "Repollo verde kilo", "Repollo verde unidad", "Romero", "Tomillo"]], ["Verduras y hongos", ["Ayote sazón", "Ayote tierno", "Brócoli", "Chayote sazón", "Chayote tierno", "Chile dulce primera", "Chile jalapeño", "Chile panameño", "Coliflor", "Elote", "Elote dulce bandeja", "Espárragos", "Frijol tierno", "Hongo entero", "Hongo portobello", "Mini vegetales", "Palmito", "Pepino", "Tacacos", "Tomate cherry", "Tomate primera", "Tomate salsa", "Tomate tercera", "Vainica", "Vainica mini", "Zapayos", "Zuquini"]]];
+var WA_NUMERO="50661489351"; /* número de WhatsApp de quien recibe los pedidos, con código de país. Ej: 50688887777 */
+var Q={},U={},cat="Todo",busca="";
+var $=function(i){return document.getElementById(i)};
+function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){}return null}
+try{var g=JSON.parse(ls("pv-q")||"{}");if(g&&typeof g==="object")Q=g}catch(e){}
+try{var gu=JSON.parse(ls("pv-u")||"{}");if(gu&&typeof gu==="object")U=gu}catch(e){}
+$("nombre").value=ls("pv-n")||"";$("notas").value=ls("pv-o")||"";
+function norm(s){return String(s).normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase()}
+function num(v){v=String(v).replace(",",".").replace(/[^0-9.]/g,"");var n=parseFloat(v);return isFinite(n)&&n>0?Math.round(n*100)/100:0}
+function fmt(n){return String(n).replace(".",",")}
+function save(){ls("pv-q",JSON.stringify(Q));ls("pv-u",JSON.stringify(U))}
+function unid(x){if(U[x])return U[x];if(/kilo/i.test(x))return"k";if(/unidad|bandeja|paquete|1x|trenza/i.test(x))return"u";return""}
+function uTxt(x,q){var u=unid(x);return u==="k"?(q===1?"kilo":"kilos"):u==="u"?(q===1?"unidad":"unidades"):""}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;")}
+function chips(){var n=["Todo"].concat(CATS.map(function(c){return c[0]}));$("chips").innerHTML=n.map(function(c){return '<button type="button" class="chip" data-c="'+esc(c)+'" aria-pressed="'+(c===cat)+'">'+esc(c)+'</button>'}).join("")}
+function unBtns(x){var u=unid(x);return '<button type="button" class="ub" data-u="k" aria-pressed="'+(u==="k")+'">Kilos</button><button type="button" class="ub" data-u="u" aria-pressed="'+(u==="u")+'">Unidades</button>'+(u?'':'<em>Elige una</em>')}
+function filas(){var k=norm(busca),h="";CATS.forEach(function(c){if(cat!=="Todo"&&cat!==c[0])return;var it=c[1].filter(function(x){return !k||norm(x).indexOf(k)>=0});if(!it.length)return;
+ h+='<h2>'+esc(c[0])+'<small>'+it.length+'</small></h2>'+it.map(function(x){var q=Q[x]||0;return '<div class="row'+(q?' on':'')+'" data-i="'+esc(x)+'"><span class="n">'+esc(x)+'<span class="u" role="group" aria-label="Unidad de '+esc(x)+'"'+(q?'':' hidden')+'>'+unBtns(x)+'</span></span><span class="q"><button type="button" class="m" data-a="-" aria-label="Quitar uno de '+esc(x)+'">&minus;</button><input class="'+(q?'':'z')+'" inputmode="decimal" value="'+(q?fmt(q):'0')+'" aria-label="Cantidad de '+esc(x)+'"><button type="button" class="p" data-a="+" aria-label="Agregar uno de '+esc(x)+'">+</button></span></div>'}).join("")});
+ $("lista").innerHTML=h||'<p class="vacio">No encontré ese producto. Prueba con otra palabra.</p>'}
+function sin(){return Object.keys(Q).filter(function(k){return Q[k]>0&&!unid(k)})}
+function total(){var n=Object.keys(Q).filter(function(k){return Q[k]>0}).length,f=sin().length;$("cnt").textContent=n+(n===1?" producto":" productos");$("hint").textContent=f?"Falta elegir kilos o unidades en "+f:"Toca el + para agregar";$("hint").style.color=f?"var(--tomato)":"";$("ver").disabled=!n||f>0}
+function set(x,q){if(q>0)Q[x]=q;else{delete Q[x]}save();total()}
+$("lista").addEventListener("click",function(e){var ub=e.target.closest("button[data-u]");if(ub){var r0=ub.closest(".row"),x0=r0.dataset.i;U[x0]=ub.dataset.u;save();upd(r0,x0);total();return}var b=e.target.closest("button[data-a]");if(!b)return;var r=b.closest(".row"),x=r.dataset.i,q=Q[x]||0;q=b.dataset.a==="+"?Math.floor(q)+1:Math.max(0,Math.ceil(q)-1);set(x,q);upd(r,x)});
+$("lista").addEventListener("input",function(e){var i=e.target;if(i.tagName!=="INPUT")return;var r=i.closest(".row");set(r.dataset.i,num(i.value));r.classList.toggle("on",!!Q[r.dataset.i]);i.classList.toggle("z",!Q[r.dataset.i]);var uu=r.querySelector(".u");if(uu)uu.hidden=!Q[r.dataset.i]});
+$("lista").addEventListener("focusin",function(e){var i=e.target;if(i.tagName==="INPUT"&&i.value==="0")i.select()});
+$("lista").addEventListener("change",function(e){var i=e.target;if(i.tagName!=="INPUT")return;var r=i.closest(".row");upd(r,r.dataset.i)});
+function upd(r,x){var q=Q[x]||0,i=r.querySelector("input"),u=r.querySelector(".u");if(u){u.innerHTML=unBtns(x);u.hidden=!q}i.value=q?fmt(q):"0";i.classList.toggle("z",!q);r.classList.toggle("on",!!q)}
+$("chips").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;cat=b.dataset.c;chips();filas()});
+$("buscar").addEventListener("input",function(){busca=this.value;filas()});
+$("nombre").addEventListener("input",function(){ls("pv-n",this.value)});$("notas").addEventListener("input",function(){ls("pv-o",this.value)});
+$("limpiar").addEventListener("click",function(){if(!Object.keys(Q).length)return;if(this.dataset.s!=="1"){this.dataset.s="1";this.textContent="¿Seguro?";var b=this;setTimeout(function(){b.dataset.s="";b.textContent="Limpiar"},3000);return}Q={};U={};save();this.dataset.s="";this.textContent="Limpiar";filas();total()});
+function texto(){var l=[],n=$("nombre").value.trim(),o=$("notas").value.trim();l.push("PEDIDO DE VERDURAS");if(n)l.push("Cliente: "+n);l.push("");
+ CATS.forEach(function(c){var it=c[1].filter(function(x){return Q[x]>0});if(!it.length)return;l.push(c[0].toUpperCase());it.forEach(function(x){l.push("- "+x+": "+fmt(Q[x])+" "+uTxt(x,Q[x]))});l.push("")});
+ if(o){l.push("Notas: "+o)}return l.join("\n").trim()}
+$("ver").addEventListener("click",function(){$("msg").value=texto();$("ok").textContent="";$("sheet").hidden=false;document.body.style.overflow="hidden"});
+function cerrar(){$("sheet").hidden=true;document.body.style.overflow=""}
+$("cerrar").addEventListener("click",cerrar);$("sheet").addEventListener("click",function(e){if(e.target===this)cerrar()});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!$("sheet").hidden)cerrar()});
+$("copiar").addEventListener("click",function(){var t=$("msg").value,m=$("ok");function fb(){$("msg").focus();$("msg").select();m.textContent="Selecciona el texto y cópialo con tu teclado."}
+ try{navigator.clipboard.writeText(t).then(function(){m.textContent="Copiado. Ahora pégalo en el chat."},fb)}catch(e){fb()}});
+$("wa").addEventListener("click",function(){window.open("https://wa.me/"+WA_NUMERO+"?text="+encodeURIComponent($("msg").value),"_blank")});
+chips();filas();total();
+</script>
+
+</html>
